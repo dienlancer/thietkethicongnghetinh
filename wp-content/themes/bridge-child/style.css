@@ -123,12 +123,13 @@ figure:hover img{-webkit-transform:scale3d(1.2, 1.2, 1);transform:scale3d(1.2, 1
 }
 nav.main_menu>ul>li>a{
 	padding : 0 10px;
+  color: #333333;
 }
 .drop_down .second .inner>ul, li.narrow .second .inner ul{
 	background: #ffffff;	   	
 }
 .drop_down .second .inner ul li a:hover{
-	background: #e90000;
+	background: #0F75BC;
 }
 li.narrow .second .inner ul{
 	padding: 0;
@@ -582,6 +583,33 @@ li.narrow .second .inner ul{
     transform: translateX(-50%);
     color: #fe5565;
 }
+.title_subtitle_holder h1{
+  font-family:"sf-ui-display-light";
+  font-size: 25px;
+  position: relative;
+  text-align: center;
+}
+.title_subtitle_holder h1::before{
+  content: "";
+    position: absolute;
+    width: 300px;
+    height: 1px;
+    background: #ddd;
+    bottom:-12px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.title_subtitle_holder h1::after{
+      content: "\f24d";
+    position: absolute;
+    font: normal normal normal 14px/1 FontAwesome;
+    background: transparent;
+    padding: 10px;
+    bottom:-29px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fe5565;
+}
 .hfsaiiidsuh{
 	position: absolute;
 	left: 0;
@@ -590,7 +618,7 @@ li.narrow .second .inner ul{
 	height: 100%;
 	padding:10px;
 	cursor: pointer;
-	background: rgba(191, 40, 50, 0.6);
+	background: rgba(15, 117, 188, 0.49);
 	opacity: 0;
 	-webkit-transition: all .5s ease;
     transition: all .5s ease;
@@ -600,7 +628,7 @@ li.narrow .second .inner ul{
 	border:1px solid #fff ; 
 	width: 100%;
 	height: 100%;
-	background: rgba(195, 22, 33, 0.6);
+	background: rgba(15, 117, 188, 0.75);
 	color: #fff;
 	display: flex;
 	flex-direction: column;
@@ -648,7 +676,7 @@ li.narrow .second .inner ul{
     position: absolute;
     height: 1px;
     width: 10%;
-    background: #d62320;
+    background: #064d7d;
     bottom: -10px;
 }
 .footer_col1 h5::after,
@@ -798,6 +826,9 @@ form[name='frm-search']  a {
 }
 .mioo{
   margin-left: 15px;
+}
+.footer_bottom_holder{
+  background-color: #0f75bcd6
 }
 @media (max-width: 768px) { 
 	.alsjgjfiosjofsj{

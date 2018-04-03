@@ -89,6 +89,12 @@ header.sticky .header_top{
 }
 
 
+	.footer_top_holder,	footer #lang_sel > ul > li > a,	footer #lang_sel_click > ul > li > a{
+		background-color: #0f75bc;
+	}
+	footer #lang_sel ul ul a,footer #lang_sel_click ul ul a,footer #lang_sel ul ul a:visited,footer #lang_sel_click ul ul a:visited{
+		background-color: #0f75bc !important;
+	}
 
 
 .footer_top .column_inner > div h2,
@@ -107,6 +113,10 @@ header.sticky .header_top{
 		color: #d5d5d5;
 	}
 
+
+	.footer_bottom_holder, #lang_sel_footer{
+		background-color:#0f75bcd6;
+	}
 
 
 
@@ -189,6 +199,16 @@ footer #lang_sel_list.lang_sel_list_vertical a,
 
 
 
+    .side_menu_button > a,
+    .mobile_menu_button span,
+	.fixed_top_header .side_menu_button > a,
+    .fixed_top_header .popup_menu .line,
+    .fixed_top_header .mobile_menu_button span{ color: #333333; }
+
+    .popup_menu .line,
+    .popup_menu .line:after, .popup_menu .line:before{
+        background-color: #333333;
+    }
  
  
  .vertical_menu_float .menu-item .second{
