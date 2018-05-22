@@ -1,3 +1,9 @@
 Apr 03 2018 03:38:40
 {"type":2,"message":"mkdir(): File exists","file":"E:\\demo\\thietkethicongnghetinh\\wp-content\\plugins\\revslider\\includes\\template.class.php","line":381}
 
+May 22 2018 08:42:54
+{"Number":8,"Message":"unserialize(): Error at offset 291 of 312 bytes","File":"E:\\demo\\thietkethicongnghetinh\\wp-includes\\functions.php","Line":330}
+
+May 22 2018 08:42:54
+{"Number":8,"Message":"unserialize(): Error at offset 291 of 312 bytes","File":"E:\\demo\\thietkethicongnghetinh\\wp-includes\\functions.php","Line":330}
+
