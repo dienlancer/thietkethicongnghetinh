@@ -85,38 +85,43 @@ function showFeaturedConstruction(){
 		'orderby' => 'date',
 		'order'   => 'DESC',
 		'posts_per_page'=>9     										
-	);  
+	);  	
 	$the_query = new WP_Query( $args );
 	if($the_query->have_posts()){
-		$k=1;
-		echo '<div>';
+		$k=0;
+		
 		while ($the_query->have_posts()){
 			$the_query->the_post();     
 			$post_id=$the_query->post->ID;                          
 			$permalink=get_the_permalink($post_id);
 			$title=get_the_title($post_id);
-			$acreage=get_post_meta($post_id,"acreage",true);			
+			$acreage=get_post_meta($post_id,"acreage",true);		
+			if($k%3 == 0){
+				echo '<div class="section_inner_margin clearfix">';
+			}	
 			?>
-			<div class="vc_column_container vc_col-sm-4">
-				<div class="margin-right-15 margin-top-15 relative v2_bnc_pr_item">
-					<div><img src="<?php the_post_thumbnail_url( 'thumbnail' ); ?>" /></div>
-					<div class="hfsaiiidsuh">
-						<a class="links_fixed" href="<?php echo $permalink; ?>"></a>
-						<div class="uweriuruiw">
-							<div class="lsouwuruwe"><?php echo $title; ?></div>
-							<div class="kjhgsruewi">Diện tích : căn hộ <?php echo $acreage; ?>m2</div>
-						</div>
-					</div>					
-				</div>				
+			<div class="wpb_column vc_column_container vc_col-sm-4">
+				<div class="vc_column-inner">
+					<div class="margin-top-15 relative v2_bnc_pr_item">
+						<div><img src="<?php the_post_thumbnail_url( 'thumbnail' ); ?>" /></div>
+						<div class="hfsaiiidsuh">
+							<a class="links_fixed" href="<?php echo $permalink; ?>"></a>
+							<div class="uweriuruiw">
+								<div class="lsouwuruwe"><?php echo $title; ?></div>
+								<div class="kjhgsruewi">Diện tích : căn hộ <?php echo $acreage; ?>m2</div>
+							</div>
+						</div>					
+					</div>		
+				</div>						
 			</div>
 			<?php
-			if($k%3 == 0){
-				echo '<div class="clr"></div>';
-			}
 			$k++;
+			if($k%3==0 || $k == $the_query->post_count){
+				echo '</div>';
+			}  
 		}
 		wp_reset_postdata();		
-		echo '</div>';
+		
 	}
 }
 /* end cong trinh tieu bieu */
@@ -136,7 +141,7 @@ function script_fanpage(){
 /* end fanpage */
 /* begin lấy danh sách bài viết theo category */
 add_shortcode( 'list_article', 'loadListArticleByCategory' );
-function loadListArticleByCategory($atts){	
+function loadListArticleByCategory($atts){		
 	$att = shortcode_atts( array(
 		'taxonomy'=>'',
 		'post_type'=>'',
@@ -192,36 +197,51 @@ function loadListArticleByCategory($atts){
 	);    
 	$pagination=$zController->getPagination("Pagination",$arrPagination); 
 	if($the_query->have_posts()){
-		$k=1;
+		$k=0;
 		echo '<form  method="post"  class="frm" name="frm">';
 		echo '<input type="hidden" name="filter_page" value="1" />';
+		
 		while ($the_query->have_posts()){
 			$the_query->the_post();     
 			$post_id=$the_query->post->ID;                          
 			$permalink=get_the_permalink($post_id);
 			$title=get_the_title($post_id);
-			$acreage=get_post_meta($post_id,"acreage",true);			
+			$acreage=get_post_meta($post_id,"acreage",true);	
+			if($k%3 == 0){
+				echo '<div class="section_inner_margin clearfix">';
+			}			
 			?>
-			<div class="vc_column_container vc_col-sm-4">
-				<div class="margin-right-15 margin-top-15 relative v2_bnc_pr_item">
-					<div><img src="<?php the_post_thumbnail_url( 'thumbnail' ); ?>" /></div>
-					<div class="hfsaiiidsuh">
-						<a class="links_fixed" href="<?php echo $permalink; ?>"></a>
-						<div class="uweriuruiw">
-							<div class="lsouwuruwe"><?php echo $title; ?></div>
-							<div class="kjhgsruewi">Diện tích : căn hộ <?php echo $acreage; ?>m2</div>
-						</div>
-					</div>					
+			<div class="wpb_column vc_column_container vc_col-sm-4">
+				<div class="vc_column-inner">
+					<div class="margin-top-15 relative v2_bnc_pr_item">
+						<div><img src="<?php the_post_thumbnail_url( 'thumbnail' ); ?>" /></div>
+						<div class="hfsaiiidsuh">
+							<a class="links_fixed" href="<?php echo $permalink; ?>"></a>
+							<div class="uweriuruiw">
+								<div class="lsouwuruwe"><?php echo $title; ?></div>
+								<div class="kjhgsruewi">Diện tích : căn hộ <?php echo $acreage; ?>m2</div>
+							</div>
+						</div>					
+					</div>				
 				</div>				
 			</div>
 			<?php
-			if($k%3 == 0){
-				echo '<div class="clr"></div>';
-			}
 			$k++;
-		}
+			if($k%3==0 || $k == $the_query->post_count){
+				echo '</div>';
+			}  
+		}		
 		wp_reset_postdata();
-		echo $pagination->showPagination();
+		?>
+		<div class="section_inner_margin clearfix">
+			<div class="wpb_column vc_column_container vc_col-sm-12">
+				<div class="vc_column-inner">
+					<?php echo $pagination->showPagination(); ?>
+				</div>
+			</div>
+		</div>
+		<?php		
+		
 		echo '</form>';	
 		
 	}
@@ -290,17 +310,21 @@ function showAlbum($atts){
 	);    
 	$pagination=$zController->getPagination("Pagination",$arrPagination); 
 	if($the_query->have_posts()){
-		$k=1;
+		$k=0;
 		echo '<form  method="post"  class="frm" name="frm">';
-		echo '<input type="hidden" name="filter_page" value="1" />';
+		echo '<input type="hidden" name="filter_page" value="1" />';		
 		while ($the_query->have_posts()){
 			$the_query->the_post();     
 			$post_id=$the_query->post->ID;                          
 			$permalink=get_the_permalink($post_id);
-			$title=get_the_title($post_id);			
+			$title=get_the_title($post_id);	
+			if($k%4 == 0){
+				echo '<div class="section_inner_margin clearfix">';
+			}		
 			?>
-			<div class="vc_column_container vc_col-sm-3">
-				<div class="margin-right-15 margin-top-15 relative v2_bnc_pr_item">
+			<div class="wpb_column vc_column_container vc_col-sm-3">
+				<div class="vc_column-inner">
+					<div class="margin-top-15 relative v2_bnc_pr_item">
 					<div><img src="<?php the_post_thumbnail_url( 'thumbnail' ); ?>" /></div>
 					<div class="hfsaiiidsuh">
 						<a class="links_fixed" href="<?php echo $permalink; ?>"></a>
@@ -308,16 +332,25 @@ function showAlbum($atts){
 							<div class="lsouwuruwe"><?php echo $title; ?></div>							
 						</div>
 					</div>					
-				</div>				
+				</div>		
+				</div>					
 			</div>
 			<?php
-			if($k%4 == 0){
-				echo '<div class="clr"></div>';
-			}
 			$k++;
+			if($k%4==0 || $k == $the_query->post_count){
+				echo '</div>';
+			}  
 		}
 		wp_reset_postdata();
-		echo $pagination->showPagination();
+		?>
+		<div class="section_inner_margin clearfix">
+			<div class="wpb_column vc_column_container vc_col-sm-12">
+				<div class="vc_column-inner">
+					<?php echo $pagination->showPagination(); ?>
+				</div>
+			</div>
+		</div>
+		<?php				
 		echo '</form>';	
 		
 	}
