@@ -9,8 +9,8 @@ if(have_posts()){
 		$content=get_the_content($post_id);       
 		?>
 			<div class="iewrqyriqwrw"><h1><center><?php echo $title; ?></center></h1></div>
-		<?php				
-		echo '<div class="margin-top-30">'.$content.'</div>' ;
+			<div class="margin-top-30"><?php the_content(); ?></div>
+		<?php						
 	}	
 }
 ?>

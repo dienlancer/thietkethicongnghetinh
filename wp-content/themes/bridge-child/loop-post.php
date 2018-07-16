@@ -1,6 +1,8 @@
 <?php 
 $term=array();
 $taxonomy='';
+$post_type='';
+$post_id=0;
 $meta_key='';
 $vHtml=new HtmlControl();
 $width=intval(get_option('thumbnail_size_w'));	
@@ -25,9 +27,12 @@ if(have_posts()){
 			$taxonomy=$term[0]->taxonomy;
 		}			
 		$data_picture = get_post_meta($post_id,$meta_key.'img-url',true);  
-		$data_ordering = get_post_meta($post_id,$meta_key.'img-ordering',true);		
-		$source=array_combine($data_ordering, $data_picture);
-		ksort($source);				
+		$data_ordering = get_post_meta($post_id,$meta_key.'img-ordering',true);	
+		$source=array();
+		if($data_picture != null && $data_ordering != null){
+			$source=array_combine($data_ordering, $data_picture);
+			ksort($source);				
+		}			
 		$count_view_post=get_post_meta( $post_id, $meta_key . 'count_view_post', true );           
 		$count  =   0;	
 		if(!empty($count_view_post)){
@@ -152,8 +157,8 @@ if(have_posts()){
 						<div id="thong-tin" class="tabcontent">
 							<div class="margin-top-15">
 								<?php
-								if(!empty($content)){
-									echo $content; 
+								if(!empty(@$content)){
+									the_content();
 								}                
 								?>                   
 							</div>

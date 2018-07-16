@@ -9,14 +9,10 @@ class RewriteHelper{
 		flush_rewrite_rules(false);
 	}		
 	public function add_tags_rule(){		
-		/*add_rewrite_tag('%zaproduct%', '([^/]+)');
-		add_permastruct('zaproduct', 'chi-tiet-san-pham/%zaproduct%.html');		
-		add_rewrite_tag('%za_category%', '([^/]+)');
-		add_permastruct('za_category', 'loai-san-pham/%za_category%.html');		*/
-		add_rewrite_tag('%za_album%', '([^/]+)');
-		add_permastruct('za_album', 'cong-trinh/%za_album%.html');
-		add_rewrite_tag('%album_construction%', '([^/]+)');
-		add_permastruct('album_construction', 'cong-trinh/%album_construction%.html');
+		/*add_rewrite_tag('%product%', '([^/]+)');
+		add_permastruct('product', 'chi-tiet-san-pham/%product%.html');		*/
+		add_rewrite_tag('%category_product%', '([^/]+)');
+		add_permastruct('category_product', 'loai-san-pham/%category_product%.html');
 		flush_rewrite_rules(false);
 	}
 	

@@ -830,6 +830,15 @@ form[name='frm-search']  a {
 .footer_bottom_holder{
   background-color: #0f75bcd6
 }
+.innercontent-single{
+  margin-top: 150px;
+}
+.category-inner{
+  margin-top: 120px;
+}
+.category-name{
+  
+}
 @media (max-width: 768px) { 
 	.alsjgjfiosjofsj{
 		padding: 0 10px;

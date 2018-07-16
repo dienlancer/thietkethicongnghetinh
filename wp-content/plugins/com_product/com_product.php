@@ -27,5 +27,7 @@ if(is_admin()){
 require_once PLUGIN_PATH . DS . 'metabox'. DS .'post-metabox.php';
 new PostMetabox();
 
-
+require_once PLUGIN_PATH . DS .  'helpers'. DS .'RewriteHelper.php';
+$options['file'] = __FILE__;
+new RewriteHelper($options);
 

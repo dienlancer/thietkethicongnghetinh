@@ -1,72 +1,111 @@
-<?php get_header();     ?>
-    <div class="tina relative">    
-        <div class="oppo">
-            <div class="relative">
-                <div class="nina">
-                    SẢN PHẨM
-                </div>
-                <div class="tma"></div>
-            </div>            
-        </div>    
-        <div>
-            <script type="text/javascript" language="javascript">        
-                jQuery(document).ready(function(){
-                    jQuery(".linda").slick({
-                        dots: true,
-                        autoplay:true,
-                        arrows:false,
-                        adaptiveHeight:true,
-                        loop:true
-                    });  
-                });     
-            </script>
-            <div class="linda">
-                <div class="lumberjack">                            
-                    <img src="<?php echo site_url('wp-content/uploads/banner-top.jpg'); ?>" />                               
-                </div>
+<?php 
+get_header(); 
+global $zController,$zendvn_sp_settings;    
+$vHtml=new HtmlControl();
+$productModel=$zController->getModel("/frontend","ProductModel");   
+$the_query = $wp_query;
+$totalItemsPerPage=0;
+$pageRange=10;
+$currentPage=1; 
+$totalItemsPerPage=9;
+if(!empty(@$_POST["filter_page"]))          {
+    $currentPage=@$_POST["filter_page"];  
+}
+if(!empty(@$zendvn_sp_settings["article_number"])){
+    $totalItemsPerPage=(int)@$zendvn_sp_settings["article_number"];        
+}
+$productModel->setWpQuery($the_query);   
+$productModel->setPerpage($totalItemsPerPage);        
+$productModel->prepare_items();               
+$totalItems= $productModel->getTotalItems();               
+$arrPagination=array(
+    "totalItems"=>$totalItems,
+    "totalItemsPerPage"=>$totalItemsPerPage,
+    "pageRange"=>$pageRange,
+    "currentPage"=>$currentPage   
+);    
+$pagination=$zController->getPagination("Pagination",$arrPagination); 
+?>
+<div class="category-inner">
+    <div class="full_width">
+    <div class="full_width_inner">
+        <div class="vc_row wpb_row section vc_row-fluid grid_section">
+            <div class="section_inner clearfix">
+                <form  method="post"  class="frm margin-top-15" name="frm">
+                    <input type="hidden" name="filter_page" value="1" />
+                    <div class="section_inner_margin clearfix">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner">
+                                <center><div class="title_subtitle_holder"><h1><?php single_cat_title(); ?></h1></div></center>
+                            </div>                  
+                        </div>
+                    </div>  
+                    <?php
+                    if($the_query->have_posts()){               
+                        $k=0;                   
+                        while ($the_query->have_posts()){
+                            $the_query->the_post();     
+                            $post_id=$the_query->post->ID;                          
+                            $permalink=get_the_permalink($post_id);
+                            $title=get_the_title($post_id);
+                            $price=get_post_meta($post_id,"price",true);    
+                            $thumbnail_id   = get_post_thumbnail_id($post_id);  
+                            $featured_img=wp_get_attachment_image_src($thumbnail_id,"single-post-thumbnail");                             
+                            if($k%3 == 0){
+                                echo '<div class="section_inner_margin clearfix">';
+                            }
+                            ?>
+                            <div class="wpb_column vc_column_container vc_col-sm-4">
+                                <div class="vc_column-inner">
+                                    <div class="wpb_wrapper">
+                                        <div class="margin-top-15 relative v2_bnc_pr_item">
+                                            <div>
+                                                <?php 
+                                                if($featured_img != null){
+                                                    ?>
+                                                    <img src="<?php the_post_thumbnail_url( 'thumbnail' ); ?>" />
+                                                    <?php
+                                                }else{
+                                                    ?>
+                                                    <img src="<?php echo site_url('wp-content/uploads/no-image.png'); ?>" />
+                                                    <?php
+                                                }
+                                                ?>                          
+                                            </div>
+                                            <div class="hfsaiiidsuh">
+                                                <a class="links_fixed" href="<?php echo $permalink; ?>"></a>
+                                                <div class="uweriuruiw">
+                                                    <div class="lsouwuruwe"><?php echo $title; ?></div>
+                                                    <div class="kjhgsruewi">Giá : <?php echo $vHtml->fnPrice($price).'&nbspđ'; ?></div>                                                   
+                                                </div>
+                                            </div>                  
+                                        </div>
+                                    </div>                                                  
+                                </div>                                      
+                            </div>   
+                            <?php
+                            $k++;
+                            if($k%3==0 || $k == $the_query->post_count){
+                                echo '</div>';
+                            }               
+                        }
+                        wp_reset_postdata();                                 
+                    }       
+                    ?>  
+                    <div class="section_inner_margin clearfix">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner">
+                                <?php 
+                                echo $pagination->showPagination(); 
+                                ?>
+                            </div>                  
+                        </div>
+                    </div>      
+                </form> 
             </div>
-        </div>       
-    </div> 
-    <div class="container margin-top-15 margin-bottom-15">
-    	<div class="row">
-    		<div class="col-lg-3 no-padding-left">    			
-    			<div class="ducati">
-    				<h3>Danh mục sản phẩm</h3>
-    				<div>
-    					<?php     
-    					$args = array( 
-    						'menu'              => '', 
-    						'container'         => '', 
-    						'container_class'   => '', 
-    						'container_id'      => '', 
-    						'menu_class'        => 'categoryproductmenu', 
-    						'menu_id'           => 'category-product-menu', 
-    						'echo'              => true, 
-    						'fallback_cb'       => 'wp_page_menu', 
-    						'before'            => '', 
-    						'after'             => '', 
-    						'link_before'       => '<i class="fa fa-star-o" aria-hidden="true"></i>', 
-    						'link_after'        => '', 
-    						'items_wrap'        => '<ul id="%1$s" class="%2$s">%3$s</ul>',  
-    						'depth'             => 3, 
-    						'walker'            => '', 
-    						'theme_location'    => 'category-product-menu' 
-    					);
-    					wp_nav_menu($args);
-    					?>   
-    					<div class="clr"></div> 
-    				</div>
-    			</div>
-
-                    <?php if(is_active_sidebar('banner-catgory-product')):?>
-                        <?php dynamic_sidebar('banner-catgory-product')?>
-                    <?php endif; ?>   
-                
-    		</div>
-    		<div class="col-lg-9 no-padding-left"><?php require_once PLUGIN_PATH . DS . "templates" . DS . "frontend". DS . "loop-za-category.php"; ?></div>
-    	</div>
+        </div>      
     </div>
-    <?php get_footer(); ?>
-    <?php wp_footer();?>
-</body>
-</html>
+</div>
+</div>
+<?php get_footer(); ?>
+<?php wp_footer();?>
